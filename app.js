@@ -1,37 +1,22 @@
-var express = require('express'),
-    mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/bookAPI');
-var Book = require('./models/bookModel');
-var app = express();
-var port = process.env.PORT || 3000;
-var bookRouter = express.Router();
+var express = require( 'express' ),
+    mongoose = require( 'mongoose' ),
+    db = mongoose.connect( 'mongodb://localhost/bookAPI' ),
+    Book = require( './models/bookModel' ),
+    bodyParser = require( 'body-parser' ),
+    app = express(),
+    bookRouter = require( './routes/bookRoutes' )( Book ),
+    port = process.env.PORT || 3000;
 
-bookRouter.route('/Books')
-  .get( function( req, res ){
-    var query = {};
-    res.send('hello');
-    if(req.query.genre) {
-      query.genre = req.query.genre;
-    }
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-  Book.find( query, function( err, books ){
-    if(err)
-      res.status( 500 ).send( err );
-    else
-      res.json( books );
-    });
-  });
+app.use( '/api/books', bookRouter );
+//app.use( '/api/authors', authorRouter );
 
-bookRouter.route( '/Books/:bookId' )
-  .get( function( req, res ){
-    Book.findById( req.params.bookId, function( err, book ){
-      if( err )
-        res.status( 500 ).send( err );
-      else
-        res.json(book);
-      });
-    });
+app.get('/', function( req, res ){
+  res.send('hi');
+});
 
-app.listen(port, function( req, res) {
+app.listen(port, function( req, res ) {
   console.log('Listening on PORT: ' + port);
 });
