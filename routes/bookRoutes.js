@@ -7,8 +7,8 @@ var routes = function( Book ) {
 
   bookRouter.route( '/' )
     .post( bookController.post )
-    .get( bookController.get )
-    
+    .get( bookController.get );
+
   bookRouter.use('/:bookId', function(req, res, next) {
     Book.findById( req.params.bookId, function( err, book ){
       if (err)
@@ -17,7 +17,7 @@ var routes = function( Book ) {
         req.book = book;
         next();
       } else {
-        res.status(404).send('no book found');
+        res.status( 404 ).send( 'no book found' );
       }
     });
   });

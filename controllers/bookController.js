@@ -11,9 +11,9 @@ var bookController = function( Book ){
       res.status( 201 );
       res.send( book );
     }
-  },
+  };
 
-  get = function( req, res ){
+  var get = function( req, res ){
     var query = {};
     if (req.query.genre) {
       query.genre = req.query.genre;
@@ -28,7 +28,7 @@ var bookController = function( Book ){
 
   return {
     post: post,
-    get:  get
+    get: get
   };
 
 };

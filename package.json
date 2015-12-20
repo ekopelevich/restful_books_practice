@@ -18,5 +18,9 @@
     "nodemon": "^1.8.1",
     "should": "^8.0.2",
     "sinon": "^1.17.2"
+  },
+  "devDependencies": {
+    "gulp-env": "^0.2.0",
+    "supertest": "^1.1.0"
   }
 }
