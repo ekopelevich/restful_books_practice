@@ -17,8 +17,10 @@ describe( 'Book CRUD Test', function(){
         done();
       });
   });
+
   afterEach(function( done ){
     Book.remove().exec();
     done();
   });
+  
 });
